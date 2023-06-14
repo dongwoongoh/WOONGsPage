@@ -13,9 +13,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "root")
 }
 
-func main() {
+func webHandler() http.Handler {
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/bar", barHandler)
 	mux.HandleFunc("/", rootHandler)
-	http.ListenAndServe(":6000", mux)
+
+	return mux
+}
+
+func main() {
+	http.ListenAndServe(":6001", webHandler())
 }
