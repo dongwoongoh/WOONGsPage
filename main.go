@@ -5,19 +5,19 @@ import (
 	"net/http"
 )
 
-func barHandler(w http.ResponseWriter, r *http.Request) {
+func BarHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "bar")
 }
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
+func RootHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "root")
 }
 
 func WebHandler() http.Handler {
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/bar", barHandler)
-	mux.HandleFunc("/", rootHandler)
+	mux.HandleFunc("/bar", BarHandler)
+	mux.HandleFunc("/", RootHandler)
 
 	return mux
 }
