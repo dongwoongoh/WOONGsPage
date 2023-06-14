@@ -5,14 +5,17 @@ import (
 	"net/http"
 )
 
+func barHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "bar")
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	fmt.Println("w", w)
-	fmt.Println("r", r)
-	fmt.Println("query:", query)
+	fmt.Fprint(w, "root")
 }
 
 func main() {
-	http.HandleFunc("/", rootHandler)
-	http.ListenAndServe(":6001", nil)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/bar", barHandler)
+	mux.HandleFunc("/", rootHandler)
+	http.ListenAndServe(":6000", mux)
 }
